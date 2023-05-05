@@ -403,6 +403,30 @@ async function saveDataToSheet(address, city, state, name, phone, email, contact
   }
 }
 
+//async function makeApiCall(cellrow, selectedContact, callback) {
+  //var params = {
+   // spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
+  //  range: "DEMO!G" + (cellrow) + ":G" + (cellrow),
+  //  valueInputOption: 'RAW',
+ // };
+
+  //var valueRangeBody = {
+  //  "values": [
+    //  [
+   //     selectedContact
+    //  ]
+   // ]
+ // };
+
+  ///try {
+   /// const response = await gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+   // console.log(response.result);
+   // callback();
+ // } catch (error) {
+   // console.error('error: ' + error.result.error.message);
+  //}
+//}
+
   </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
