@@ -3,17 +3,19 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="header">
-    <img src="BACKPOCKET.png" alt="Company Logo" class="logo">
+    <img src="your_logo_url_here" alt="Company Logo" class="logo">
     <span>DEMO</span>
+    <div>
+      <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    </div>
   </div>
   <div id="map"></div>
-  <!--Add buttons to initiate auth sequence and sign out-->
-  <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-  <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-  <button id="update-button" style="display:none" onclick="createSheetCopy()">Create A Copied Sheet</button>
 
   <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -121,7 +123,7 @@
     function makeApiCall(cellrow, selectedContact) {
       var params = {
         spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
-        range: "MapView!H" + (cellrow) + ":H" + (cellrow),
+        range: "DEMO!G" + (cellrow) + ":G" + (cellrow),
         valueInputOption: 'RAW',
       };
     
