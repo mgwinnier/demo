@@ -180,7 +180,7 @@
     }
 
 
-    async function saveDataToSheet(address, city, state, name, phone, email, contact) {
+    async function saveDataToSheet(name, phone, email, contact) {
       var params = {
         spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
         range: "DEMO!A" + (cellrow) + ":G" + (cellrow),
@@ -190,7 +190,7 @@
       var valueRangeBody = {
         "values": [
           [
-          address, city, state, name, phone, email, contact
+         name, phone, email, contact
           ]
         ]
       };
@@ -373,31 +373,8 @@ google.maps.event.addListener(map, 'click', function(event) {
     var contact = document.getElementById('contact').value;
 
     // Geocode the LatLng of the pin to get the address, city, and state
-    geocoder.geocode({'location': latLng}, function(results, status) {
-      if (status === 'OK') {
-        var address = results[0].formatted_address;
-        var city = '';
-        var state = '';
-
-        // Loop through the address components to get the city and state
-        for (var i = 0; i < results[0].address_components.length; i++) {
-          var component = results[0].address_components[i];
-          if (component.types.indexOf('locality') !== -1) {
-            city = component.long_name;
-          }
-          if (component.types.indexOf('administrative_area_level_1') !== -1) {
-            state = component.short_name;
-          }
-        }
-
         // Save the data to the Google Sheet
-        saveDataToSheet(address, city, state, name, phone, email, contact);
-
-      } else {
-        console.error('Geocode error: ' + status);
-      }
-    });
-
+        saveDataToSheet(name, phone, email, contact);
     // Close the info window after submission
     infoWindow.close();
   });
