@@ -192,7 +192,6 @@
   <script>
     // Initialize the map
     var map;
-    var geocoder = new google.maps.Geocoder();
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: {lat: 38.045377, lng: -84.495359},
@@ -315,109 +314,6 @@
         console.error('error: ' + reason.result.error.message);
       });
     }
-
-    map.addListener("click", function (event) {
-      var latLng = event.latLng;
-      geocoder.geocode({ location: latLng }, function (results, status) {
-        if (status === "OK") {
-          var address = results[0].formatted_address;
-          var city, state;
-    
-          results[0].address_components.forEach(function (component) {
-            if (component.types.includes("locality")) {
-              city = component.long_name;
-            } else if (component.types.includes("administrative_area_level_1")) {
-              state = component.short_name;
-            }
-          });
-    
-          var rowIndex = data.values.length;
-          var marker = new google.maps.Marker({
-            position: latLng,
-            map: map,
-            title: address,
-            row: rowIndex + 1,
-            icon: getMarkerIcon(null),
-          });
-    
-          data.values.push([address, city, state, "", "", "", ""]);
-    
-          openInfoWindow(marker, rowIndex);
-        } else {
-          console.error("Geocode error: " + status);
-        }
-      });
-    });
-    
-    function openInfoWindow(marker, rowIndex) {
-      var address = data.values[rowIndex][0];
-      var city = data.values[rowIndex][1];
-      var state = data.values[rowIndex][2];
-      var name = data.values[rowIndex][3];
-      var phone = data.values[rowIndex][4];
-      var email = data.values[rowIndex][5];
-      var contact = data.values[rowIndex][6];
-    
-      var content = "Address: " + address + "<br>City: " + city + "<br>State: " + state + "<br><br>";
-      content += 'Name: <input type="text" id="name-' + rowIndex + '" value="' + name + '"><br>';
-      content += 'Phone: <input type="text" id="phone-' + rowIndex + '" value="' + phone + '"><br>';
-      content += 'Email: <input type="text" id="email-' + rowIndex + '" value="' + email + '"><br><br>';
-      content +=
-        '<select id="contact-select-' +
-        rowIndex +
-        '">' +
-        '<option value="default">Select a Contact Status</option>' +
-        '<option value="called"' +
-        (contact === "called" ? " selected" : "") +
-        ">Called</option>" +
-        '<option value="emailed"' +
-        (contact === "emailed" ? " selected" : "") +
-        ">Emailed</option>" +
-        '<option value="mailed"' +
-        (contact === "mailed" ? " selected" : "") +
-        ">Mailed</option>" +
-        '<option value="none"' +
-        (contact === "none" ? " selected" : "") +
-        ">None</option>" +
-        "</select><br><br>";
-      content += '<button id="update-button-' + rowIndex + '">Update</button>';
-    
-      var infoWindow = new google.maps.InfoWindow({
-        content: content,
-      });
-    
-      infoWindow.open(map, marker);
-    
-      // Add a click event listener for the update button
-      google.maps.event.addListener(infoWindow, "domready", function () {
-        var updateButton = document.getElementById("update-button-" + rowIndex);
-        updateButton.onclick = function () {
-          // Get the updated values from the info
-                // Get the updated values from the info window inputs
-      var updatedName = document.getElementById("name-" + rowIndex).value;
-      var updatedPhone = document.getElementById("phone-" + rowIndex).value;
-      var updatedEmail = document.getElementById("email-" + rowIndex).value;
-      var updatedContactStatus = document.getElementById("contact-select-" + rowIndex).value;
-
-      // Update the data.values array with the new data
-      data.values[rowIndex][3] = updatedName;
-      data.values[rowIndex][4] = updatedPhone;
-      data.values[rowIndex][5] = updatedEmail;
-      data.values[rowIndex][6] = updatedContactStatus;
-
-      // Update the marker icon based on the new contact status
-      marker.setIcon(getMarkerIcon(updatedContactStatus));
-
-      // Close the info window
-      infoWindow.close();
-
-      // Save updated data to the spreadsheet
-      saveDataToSpreadsheet();
-    };
-  });
-}
-
-    
   </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
