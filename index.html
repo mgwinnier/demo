@@ -190,6 +190,7 @@
     <div id="map" style="height: 100vh; width: 100%;"></div>
   <script>
     // Initialize the map
+    var nextRowIndex = 0;
     var map;
     const geocoder = new google.maps.Geocoder()
     function initMap() {
@@ -290,6 +291,7 @@
       for (var i = 0; i < rows.length; i++) {
         createMarker(i);
       }
+      nextRowIndex = rows.length + 1;
     });
 
     function makeApiCall(cellrow, selectedContact) {
@@ -336,10 +338,8 @@
             var city = address_components[3].long_name;
             var state = address_components[5].short_name;
     
-            var rowIndex = data.values.length;
-    
             // Display an info window for the user to add contact details
-            displayInfoWindow(marker, rowIndex, address, city, state, "", "", "", "");
+            displayInfoWindow(marker, nextRowIndex, address, city, state, "", "", "", "");
           }
         } else {
           console.error("Reverse geocode error: " + status);
