@@ -7,11 +7,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #004B87;
+    background-color: white;
     padding: 15px 25px;
     font-size: 24px;
     font-weight: bold;
-    color: #ffffff;
+    color: #004B87;
   }
   
   .logo {
