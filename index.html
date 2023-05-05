@@ -178,6 +178,31 @@
         'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
         'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
     }
+
+    async function saveDataToSheet(address, city, state, name, phone, email, contact) {
+      // Create the resource body for appending data to the Google Sheet
+      const valueRangeBody = {
+        "range": "DEMO!A1:G",
+        "majorDimension": "ROWS",
+        "values": [
+          [address, city, state, name, phone, email, contact]
+        ]
+      };
+    
+      try {
+        // Use the Google Sheets API to append the data to the next empty row
+        await gapi.client.sheets.spreadsheets.values.append({
+          spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
+          range: 'DEMO!A1:G',
+          valueInputOption: 'RAW',
+          insertDataOption: 'INSERT_ROWS', // This option inserts the data in the next empty row
+          resource: valueRangeBody
+        });
+        console.log('Data saved to Google Sheet successfully');
+      } catch (error) {
+        console.error('Error saving data to Google Sheet:', error);
+      }
+    }
     
     
   </script>
@@ -378,30 +403,7 @@ google.maps.event.addListener(map, 'click', function(event) {
   });
 });
 
-async function saveDataToSheet(address, city, state, name, phone, email, contact) {
-  // Create the resource body for appending data to the Google Sheet
-  const valueRangeBody = {
-    "range": "DEMO!A1:G",
-    "majorDimension": "ROWS",
-    "values": [
-      [address, city, state, name, phone, email, contact]
-    ]
-  };
 
-  try {
-    // Use the Google Sheets API to append the data to the next empty row
-    await gapi.client.sheets.spreadsheets.values.append({
-      spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
-      range: 'DEMO!A1:G',
-      valueInputOption: 'RAW',
-      insertDataOption: 'INSERT_ROWS', // This option inserts the data in the next empty row
-      resource: valueRangeBody
-    });
-    console.log('Data saved to Google Sheet successfully');
-  } catch (error) {
-    console.error('Error saving data to Google Sheet:', error);
-  }
-}
 
 //async function makeApiCall(cellrow, selectedContact, callback) {
   //var params = {
