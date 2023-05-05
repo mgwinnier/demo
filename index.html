@@ -27,6 +27,18 @@
       <span>Not Contacted</span>
     </div>
   </div>
+
+  <div class="features-section">
+    <h2>Features</h2>
+    <ul>
+      <li>Automated Email: Send automated emails to leads with customizable templates.</li>
+      <li>Customizable InfoWindow: Personalize the information displayed on the map for each lead.</li>
+      <li>Hail Data (Beta): Access hailstorm data to identify potential leads in affected areas.</li>
+      <li>Route Optimization: Optimize driving routes between multiple leads to save time and fuel.</li>
+      <li>Automated Follow-ups: Schedule automated email or SMS follow-ups with leads using third-party APIs.</li>
+      <!-- Add other bullet points here -->
+    </ul>
+  </div>
   <pre id="content" style="white-space: pre-wrap;"></pre>
 
   <script type="text/javascript">
@@ -178,6 +190,21 @@
         center: {lat: 38.045377, lng: -84.495359},
         zoom: 5
       });
+      var legend = document.createElement('div');
+    legend.id = 'legend';
+    legend.className = 'gmap-legend';
+    legend.innerHTML = `
+      <div class="legend-item">
+        <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Red marker" class="legend-icon">
+        <span>Contacted</span>
+      </div>
+      <div class="legend-item">
+        <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Blue marker" class="legend-icon">
+        <span>Not Contacted</span>
+      </div>
+    `;
+
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(legend);
     }
     initMap();
 
