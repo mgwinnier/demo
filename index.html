@@ -17,18 +17,16 @@
   </div>
   <div id="map"></div>
   <!-- Add a legend div below the map div -->
-<div id="map"></div>
-<div class="legend" id="legend">
-  <div class="legend-item">
-    <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Red marker" class="legend-icon">
-    <span>Contacted</span>
+  <div class="gmap-legend" id="legend">
+    <div class="legend-item">
+      <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Red marker" class="legend-icon">
+      <span>Contacted</span>
+    </div>
+    <div class="legend-item">
+      <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Blue marker" class="legend-icon">
+      <span>Not Contacted</span>
+    </div>
   </div>
-  <div class="legend-item">
-    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Blue marker" class="legend-icon">
-    <span>Not Contacted</span>
-  </div>
-</div>
-
   <pre id="content" style="white-space: pre-wrap;"></pre>
 
   <script type="text/javascript">
@@ -132,13 +130,13 @@
         document.getElementById('signout_button').style.visibility = 'hidden';
       }
     }
-    function makeApiCall(cellrow, selectedContact) {
+    async function makeApiCall(cellrow, selectedContact, callback) {
       var params = {
         spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
         range: "DEMO!G" + (cellrow) + ":G" + (cellrow),
         valueInputOption: 'RAW',
       };
-    
+
       var valueRangeBody = {
         "values": [
           [
@@ -146,13 +144,14 @@
           ]
         ]
       };
-    
-      var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-      request.then(function (response) {
+
+      try {
+        const response = await gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
         console.log(response.result);
-      }, function (reason) {
-        console.error('error: ' + reason.result.error.message);
-      });
+        callback();
+      } catch (error) {
+        console.error('error: ' + error.result.error.message);
+      }
     }
 
     function getMarkerIcon(contact) {
@@ -240,6 +239,7 @@
                     infoWindow.close();
                   } else if (selectedContact !== "default") {
                     marker.contact = selectedContact;
+                    marker.setIcon(getMarkerIcon(selectedContact));
                   }
                   var cellrow = marker.row;
                   console.log(marker.row);
