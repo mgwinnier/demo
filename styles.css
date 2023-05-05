@@ -15,7 +15,7 @@ body {
   }
   
   .logo {
-    height: 50px;
+    height: 40px;
     width: auto;
   }
   
@@ -31,7 +31,7 @@ body {
     color: white;
     font-size: 16px;
     margin: 5px;
-    padding: 8px 16px;
+    padding: 4px 8px;
     cursor: pointer;
   }
   
