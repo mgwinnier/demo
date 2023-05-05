@@ -217,7 +217,6 @@
 
     $.get("https://sheets.googleapis.com/v4/spreadsheets/12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU/values/A1:ZZ?key=AIzaSyALwh15cE0Jyt35HbTx7fyzdiedm3aL02s", function(data) {
       var rows = data.values;
-      var geocoder = new google.maps.Geocoder();
 
       function createMarker(i) {
         var address = rows[i][0];
