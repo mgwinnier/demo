@@ -43,7 +43,7 @@ body {
   .gmap-legend {
     position: absolute;
     z-index: 1;
-    top: 10px;
+    top: 20px;
     right: 10px;
     background: rgba(255, 255, 255, 0.8);
     padding: 10px;
