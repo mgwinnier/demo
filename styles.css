@@ -38,7 +38,7 @@ body {
   button:hover {
     background-color: #0056b3;
   }
-
+  
   /* Add styles for the legend */
   .gmap-legend {
     position: absolute;
@@ -50,5 +50,4 @@ body {
     border-radius: 5px;
     font-family: 'Roboto', sans-serif;
   }
-  
   
