@@ -178,31 +178,6 @@
         'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
         'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
     }
-
-
-    async function saveDataToSheet(name, phone, email, contact) {
-      var params = {
-        spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
-        range: "DEMO!A" + (cellrow) + ":G" + (cellrow),
-        valueInputOption: 'RAW',
-      };
-
-      var valueRangeBody = {
-        "values": [
-          [
-         name, phone, email, contact
-          ]
-        ]
-      };
-
-      try {
-        const response = await gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-        console.log(response.result);
-        callback();
-      } catch (error) {
-        console.error('error: ' + error.result.error.message);
-      }
-    }
     
     
   </script>
@@ -339,73 +314,6 @@
         console.error('error: ' + reason.result.error.message);
       });
     }
-// Add a click event listener on the map to add a new pin
-google.maps.event.addListener(map, 'click', function(event) {
-  var latLng = event.latLng;
-  var marker = new google.maps.Marker({
-    position: latLng,
-    map: map,
-    icon: getMarkerIcon(null),
-  });
-
-  // Open an info window with a form to input the required data
-  var content = '<form id="new-pin-form">' +
-    '<label>Contact Name:</label><input type="text" id="contact-name"><br>' +
-    '<label>Phone Number:</label><input type="text" id="phone-number"><br>' +
-    '<label>Email:</label><input type="email" id="email"><br>' +
-    '<label>Contact:</label><input type="text" id="contact"><br>' +
-    '<button type="submit">Save</button>' +
-    '</form>';
-
-  var infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
-
-  infoWindow.open(map, marker);
-
-  // Add a submit event listener on the form
-  google.maps.event.addDomListener(document.getElementById('new-pin-form'), 'submit', function(e) {
-    e.preventDefault();
-
-    var name = document.getElementById('contact-name').value;
-    var phone = document.getElementById('phone-number').value;
-    var email = document.getElementById('email').value;
-    var contact = document.getElementById('contact').value;
-
-    // Geocode the LatLng of the pin to get the address, city, and state
-        // Save the data to the Google Sheet
-        saveDataToSheet(name, phone, email, contact);
-    // Close the info window after submission
-    infoWindow.close();
-  });
-});
-
-
-
-//async function makeApiCall(cellrow, selectedContact, callback) {
-  //var params = {
-   // spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
-  //  range: "DEMO!G" + (cellrow) + ":G" + (cellrow),
-  //  valueInputOption: 'RAW',
- // };
-
-  //var valueRangeBody = {
-  //  "values": [
-    //  [
-   //     selectedContact
-    //  ]
-   // ]
- // };
-
-  ///try {
-   /// const response = await gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-   // console.log(response.result);
-   // callback();
- // } catch (error) {
-   // console.error('error: ' + error.result.error.message);
-  //}
-//}
-
   </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
