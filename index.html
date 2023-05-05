@@ -111,31 +111,23 @@
     }
     function makeApiCall(cellrow, selectedContact) {
       var params = {
-        // The ID of the spreadsheet to update.
-        spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',  // TODO: Update placeholder value.
-
-        // The A1 notation of the values to update.
-        range: "MapView!G" + (cellrow) + ":G" + (cellrow),  // TODO: Update placeholder value.
-
-        // How the input data should be interpreted.
-        valueInputOption: 'RAW',  // TODO: Update placeholder value.
+        spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
+        range: "MapView!G" + (cellrow) + ":G" + (cellrow),
+        valueInputOption: 'RAW',
       };
-
+    
       var valueRangeBody = {
-        // TODO: Add desired properties to the request body. All existing properties
-        // will be replaced.
-        "values" : [
+        "values": [
           [
-          selectedContact
+            selectedContact
           ]
         ]
       };
-
+    
       var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
-      request.then(function(response) {
-        // TODO: Change code below to process the `response` object:
+      request.then(function (response) {
         console.log(response.result);
-      }, function(reason) {
+      }, function (reason) {
         console.error('error: ' + reason.result.error.message);
       });
     }
