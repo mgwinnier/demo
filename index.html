@@ -111,13 +111,13 @@
         document.getElementById('update-button').style.visibility = 'hidden';
       }
     }
-    function makeApiCall(selectedRoof,cellrow, selectedContact) {
+    function makeApiCall(cellrow, selectedContact) {
       var params = {
         // The ID of the spreadsheet to update.
         spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',  // TODO: Update placeholder value.
 
         // The A1 notation of the values to update.
-        range: "MapView!J" + (cellrow) + ":J" + (cellrow),  // TODO: Update placeholder value.
+        range: "MapView!G" + (cellrow) + ":G" + (cellrow),  // TODO: Update placeholder value.
 
         // How the input data should be interpreted.
         valueInputOption: 'RAW',  // TODO: Update placeholder value.
