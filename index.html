@@ -179,28 +179,28 @@
         'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
     }
 
+
     async function saveDataToSheet(address, city, state, name, phone, email, contact) {
-      // Create the resource body for appending data to the Google Sheet
-      const valueRangeBody = {
-        "range": "DEMO!A1:G",
-        "majorDimension": "ROWS",
+      var params = {
+        spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
+        range: "DEMO!A" + (cellrow) + ":G" + (cellrow),
+        valueInputOption: 'RAW',
+      };
+
+      var valueRangeBody = {
         "values": [
-          [address, city, state, name, phone, email, contact]
+          [
+          address, city, state, name, phone, email, contact
+          ]
         ]
       };
-    
+
       try {
-        // Use the Google Sheets API to append the data to the next empty row
-        await gapi.client.sheets.spreadsheets.values.append({
-          spreadsheetId: '12jxODA7mVsxdWN2D1QrFNewP_67A5CGt_6L1Ev75diU',
-          range: 'DEMO!A1:G',
-          valueInputOption: 'RAW',
-          insertDataOption: 'INSERT_ROWS', // This option inserts the data in the next empty row
-          resource: valueRangeBody
-        });
-        console.log('Data saved to Google Sheet successfully');
+        const response = await gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+        console.log(response.result);
+        callback();
       } catch (error) {
-        console.error('Error saving data to Google Sheet:', error);
+        console.error('error: ' + error.result.error.message);
       }
     }
     
