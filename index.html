@@ -16,6 +16,18 @@
     </div>
   </div>
   <div id="map"></div>
+  <!-- Add a legend div below the map div -->
+<div id="map"></div>
+<div class="legend" id="legend">
+  <div class="legend-item">
+    <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Red marker" class="legend-icon">
+    <span>Contacted</span>
+  </div>
+  <div class="legend-item">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Blue marker" class="legend-icon">
+    <span>Not Contacted</span>
+  </div>
+</div>
 
   <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -142,6 +154,13 @@
         console.error('error: ' + reason.result.error.message);
       });
     }
+
+    function getMarkerIcon(contact) {
+      return contact !== '' ?
+        'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
+        'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+    }
+    
     
   </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
@@ -178,14 +197,15 @@
             var latLng = results[0].geometry.location;
             var name = rows[i][3];
             var phone = rows[i][4];
-            var contact = rows[i][5];
+            var contact = rows[i][6];
 
             var marker = new google.maps.Marker({
               position: latLng,
               map: map,
               title: address,
               row: i + 1,
-              contact: contact
+              contact: contact,
+              icon: getMarkerIcon(contact),
             });
 
             // Add an info window to the marker
