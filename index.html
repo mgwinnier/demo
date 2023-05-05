@@ -178,79 +178,7 @@
         'http://maps.google.com/mapfiles/ms/icons/red-dot.png' :
         'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
     }
-
-    function displayInfoWindow(marker, rowIndex, address, city, state, name, phone, email, contact) {
-      // Add an info window to the marker
-      var content =
-        "Address: " +
-        address +
-        "<br>City: " +
-        city +
-        "<br>State: " +
-        state +
-        "<br>Name: <input type='text' id='name-" +
-        rowIndex +
-        "' value='" +
-        name +
-        "'>" +
-        "<br>Phone: <input type='text' id='phone-" +
-        rowIndex +
-        "' value='" +
-        phone +
-        "'>" +
-        "<br>Email: <input type='text' id='email-" +
-        rowIndex +
-        "' value='" +
-        email +
-        "'>" +
-        "<br><br>" +
-        "<select id='contact-select-" +
-        rowIndex +
-        "'>" +
-        "<option value='default'>Select a Contact Status</option>" +
-        "<option value='called'" +
-        (contact === "called" ? " selected" : "") +
-        ">Called</option>" +
-        "<option value='emailed'" +
-        (contact === "emailed" ? " selected" : "") +
-        ">Emailed</option>" +
-        "<option value='mailed'" +
-        (contact === "mailed" ? " selected" : "") +
-        ">Mailed</option>" +
-        "<option value='none'" +
-        (contact === "none" ? " selected" : "") +
-        ">None</option>" +
-        "<option value='delete'" +
-        (contact === "delete" ? " selected" : "") +
-        ">Delete Lead</option>" +
-        "</select><br><br>";
-      content += "<button id='update-button-" + rowIndex + "'>Update</button>";
     
-      var infoWindow = new google.maps.InfoWindow({
-        content: content,
-      });
-      infoWindow.open(map, marker);
-
-      // Add a click event listener for the update button
-      google.maps.event.addListener(infoWindow, "domready", function () {
-        var updateButton = document.getElementById("update-button-" + rowIndex);
-        updateButton.onclick = function () {
-          // Get the updated values from the info window
-          var name = document.getElementById("name-" + rowIndex).value;
-          var phone = document.getElementById("phone-" + rowIndex).value;
-          var email = document.getElementById("email-" + rowIndex).value;
-          var contact = document.getElementById("contact-select-" + rowIndex).value;
-    
-          // Update the data array
-          data.values[rowIndex] = [address, city, state, name, phone, email, contact];
-    
-          // Update the Google Sheet
-          updateSheet(rowIndex, address, city, state, name, phone, email, contact);
-    
-          // Close the info window
-          infoWindow.close();
-        };
-      });
   </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>     
@@ -417,9 +345,9 @@
         }
       });
     }
-    map.addListener("click", handleMapClick);
+    
 
-  }
+    
   </script>
   <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
