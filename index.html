@@ -211,7 +211,7 @@
             google.maps.event.addListener(infoWindow, 'domready', (function(marker, i) {
               return function() {
                 $("#update-button-" + i).click(function() {
-                  var selectedContact = $("#contact-select-" + i).val
+                  var selectedContact = $("#contact-select-" + i).val();
                   if (selectedContact === "delete") {
                     marker.setMap(null);
                     infoWindow.close();
@@ -223,7 +223,7 @@
                   makeApiCall(cellrow, selectedContact);
                 });
               };
-            })(marker, i));
+            })(marker, i));            
           } else {
             console.error('Geocode error: ' + status);
           }
